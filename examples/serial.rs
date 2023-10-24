@@ -32,7 +32,7 @@ fn machine_info<T: ch58x_hal::uart::BasicInstance>(serial: &mut UartTx<T>) {
             writeln!(serial, "ISA unknown").unwrap();
         }
         Some(v) => {
-            writeln!(serial, "ISA: {v:x?}").unwrap();
+            writeln!(serial, "ISA: {v:08x?}").unwrap();
         }
     }
 
@@ -41,7 +41,7 @@ fn machine_info<T: ch58x_hal::uart::BasicInstance>(serial: &mut UartTx<T>) {
             writeln!(serial, "vendor unknown").unwrap();
         }
         Some(v) => {
-            writeln!(serial, "vendor: {v:x?}").unwrap();
+            writeln!(serial, "vendor: {v:08x?}").unwrap();
         }
     }
 
@@ -50,7 +50,7 @@ fn machine_info<T: ch58x_hal::uart::BasicInstance>(serial: &mut UartTx<T>) {
             writeln!(serial, "arch. ID unknown").unwrap();
         }
         Some(v) => {
-            writeln!(serial, "arch. ID: {v:x?}").unwrap();
+            writeln!(serial, "arch. ID: {v:08x?}").unwrap();
         }
     }
 
@@ -59,7 +59,7 @@ fn machine_info<T: ch58x_hal::uart::BasicInstance>(serial: &mut UartTx<T>) {
             writeln!(serial, "impl. ID unknown").unwrap();
         }
         Some(v) => {
-            writeln!(serial, "impl. ID: {v:x?}").unwrap();
+            writeln!(serial, "impl. ID: {v:08x?}").unwrap();
         }
     }
 }
