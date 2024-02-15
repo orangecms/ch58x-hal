@@ -174,6 +174,10 @@ impl<'d, T: BasicInstance> UartTx<'d, T> {
         const UART_FIFO_SIZE: u8 = 8;
 
         for &c in buffer {
+            if c == b'\n' {
+                while rb.tfc.read().bits() >= UART_FIFO_SIZE {}
+                rb.thr().write(|w| unsafe { w.bits(b'\r') });
+            }
             // wait
             while rb.tfc.read().bits() >= UART_FIFO_SIZE {}
             rb.thr().write(|w| unsafe { w.bits(c) });
@@ -219,6 +223,9 @@ mod eh1 {
 
     impl<'d, T: BasicInstance> embedded_hal_nb::serial::Write for UartTx<'d, T> {
         fn write(&mut self, char: u8) -> nb::Result<(), Self::Error> {
+            if char == b'\n' {
+                self.blocking_write(&[b'\r']).map_err(nb::Error::Other).ok();
+            }
             self.blocking_write(&[char]).map_err(nb::Error::Other)
         }
 
