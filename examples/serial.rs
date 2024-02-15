@@ -113,15 +113,14 @@ fn main() -> ! {
     writeln!(serial, "2s {:?}", rtc.counter_2s()).unwrap();
 
     loop {
-        // serial.blocking_flush();
+        serial.blocking_flush();
         if download_button.is_low() {
             blue_led.set_low();
         } else {
             blue_led.set_high();
         }
 
-        // FIXME: systick counter is not increasing, delay has no effect
-        // writeln!(serial, "tick! {}", SysTick::now()).unwrap();
-        delay.delay_ms(1000);
+        writeln!(serial, "tick! {}", SysTick::now()).unwrap();
+        delay.delay_ms(100);
     }
 }
